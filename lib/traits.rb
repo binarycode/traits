@@ -1,0 +1,3 @@
+module Traits
+  
+end

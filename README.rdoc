@@ -1,5 +1,10 @@
 = traits
 
+Traits for Rails, perphaps for 3 =)
+
+Basic logic, which i used, at all my projects.
+
+
 Description goes here.
 
 == Note on Patches/Pull Requests
