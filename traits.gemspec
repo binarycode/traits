@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{traits}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["dieinzige"]
   s.date = %q{2010-08-20}
-  s.description = %q{Common usage patters, at my rails stack}
+  s.description = %q{TODO: longer description of your gem}
   s.email = %q{dieinzige@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Show description}
+  s.summary = %q{TODO: one-line summary of your gem}
   s.test_files = [
     "test/helper.rb",
      "test/test_traits.rb"
