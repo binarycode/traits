@@ -1,3 +1,3 @@
 module Traits
-  require 'traits/controller/controller'
+  require 'traits/controller'
 end
