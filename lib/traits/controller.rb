@@ -1,6 +1,8 @@
 module Traits::Controller
-  require 'traits/controller/actions'
-  require 'traits/controller/resource'
+  autoload :Actions, 'traits/controller/actions'
+  autoload :Resource, 'traits/controller/resource'
+  autoload :Authorization, 'traits/controller/authorization'
+
   
   
 end
