@@ -2,7 +2,8 @@ module Traits::Controller::Actions::Index
   
   module InstanceMethods
     def index
-      respond_with resource_class.all
+      collection = params[:filter] ? resource_class.search(params) : resource_class.all
+      response_with_options collection
     end
   end
   

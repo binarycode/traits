@@ -25,6 +25,12 @@ module Traits
         def resource_class
           singular_name.classify.constantize
         end
+        
+        def response_with_options(resource)
+          serialize_options = resource_class.constants.include?("SerializeOptions") ? 
+                                                    resource_class::SerializeOptions  : []
+          respond_with resource, serialize_options
+        end
       end
       
       def self.included(receiver)
