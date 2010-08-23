@@ -9,7 +9,7 @@ module Traits::Controller::Actions::Create
   module ClassMethods
     def define_create_with_scope(scope)
       define_method :create do
-        _resource = scope.create(params[singular_name])
+        _resource = instance_eval(scope).create(params[singular_name])
         instance_variable_set("@#{singular_name}", _resource)
         respond_with instance_variable_get("@#{singular_name}")
       end
