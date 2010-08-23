@@ -1,7 +1,7 @@
 module Traits::Controller::Actions::Index
   
   module InstanceMethods
-    def show
+    def index
       respond_with resource_class.all
     end
   end
