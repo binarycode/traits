@@ -51,7 +51,7 @@ module Traits::Controller::Authorization::Authlogic
          def authenticate
            unless current_user
              store_location
-             redirect_to root_path, :notice =>  "You must be logged in to access this page"
+             redirect_to root_path, :status => 401, :notice =>  "You must be logged in to access this page"
              return false
            end
          end
@@ -59,10 +59,11 @@ module Traits::Controller::Authorization::Authlogic
          def require_no_user
            if current_user
              store_location
-             redirect_to root_path, :notice =>  "You must not be logged in to access this page"
+             redirect_to root_path, :status => 401, :notice =>  "You must not be logged in to access this page"
              return false
            end
          end
+         
 
          def store_location
            session[:return_to] = request.fullpath
