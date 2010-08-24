@@ -28,7 +28,7 @@ module Traits
         
         def response_with_options(resource)
           serialize_options = resource_class.constants.include?("SerializeOptions") ? 
-                                                    resource_class::SerializeOptions  : []
+                                                    resource_class::SerializeOptions  : {}
           respond_with resource, serialize_options
         end
       end
