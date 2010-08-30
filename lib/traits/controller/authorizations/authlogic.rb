@@ -50,17 +50,13 @@ module Traits::Controller::Authorization::Authlogic
 
          def authenticate
            unless current_user
-             store_location
-             redirect_to root_path, :status => 401, :notice =>  "You must be logged in to access this page"
-             return false
+              access_denied
            end
          end
 
          def require_no_user
            if current_user
-             store_location
-             redirect_to root_path, :status => 401, :notice =>  "You must not be logged in to access this page"
-             return false
+             access_denied
            end
          end
          
@@ -72,6 +68,12 @@ module Traits::Controller::Authorization::Authlogic
          def redirect_back_or_default(default)
            redirect_to(session[:return_to] || default)
            session[:return_to] = nil
+         end
+         
+         def access_denied(path = root_path, notice = "You must be logged")
+           store_location
+           redirect_to path, :status => 401, :notice => notice
+           return false
          end
     end
     
