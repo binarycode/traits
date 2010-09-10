@@ -20,17 +20,22 @@ module Traits
         
         def singular_name
            controller_name.singularize
-         end
+        end
         
         def resource_class
           singular_name.classify.constantize
         end
         
+        
         def response_with_options(resource)
-          serialize_options = resource_class.constants.include?("SerializeOptions") ? 
-                                                    resource_class::SerializeOptions  : {}
-          respond_with resource, serialize_options
+           serialize_options  = {}
+           begin
+             serialize_options = resource_class.const_get(:SerializeOptions)
+           rescue
+           end
+           respond_with resource, serialize_options
         end
+
       end
       
       def self.included(receiver)
