@@ -11,7 +11,7 @@ module Traits::Controller::Actions::Create
       define_method :create do
         _resource = instance_eval(scope).create(params[singular_name])
         instance_variable_set("@#{singular_name}", _resource)
-        respond_with instance_variable_get("@#{singular_name}")
+        response_with_options instance_variable_get("@#{singular_name}")
       end
     end
   end
