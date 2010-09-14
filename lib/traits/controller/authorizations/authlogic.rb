@@ -38,14 +38,21 @@ module Traits::Controller::Authorization::Authlogic
     
     module InstanceMethods
       private
+         def ivar_session_name
+           "@current_session"
+         end
+         
+         def ivar_user_name
+           "@current_user"
+         end
          def current_session
-           return @current_session if defined?(@current_session)
-           @current_session = UserSession.find
+           return instance_variable_get(ivar_session_name) if instance_variable_defined?(ivar_session_name)
+           instance_variable_set(ivar_session_name, UserSession.find)
          end
 
          def current_user
-           return @current_user if defined?(@current_user)
-           @current_user = current_session && current_session.record
+           return instance_variable_get(ivar_user_name) if instance_variable_defined?(ivar_user_name)
+           instance_variable_set(ivar_user_name, current_session && current_session.record)
          end
 
          def authenticate
