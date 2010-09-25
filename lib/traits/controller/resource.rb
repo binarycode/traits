@@ -9,6 +9,15 @@ module Traits
         def singular_name
           controller_name.singularize
         end
+        
+        def collection_scope named_scope
+          class_eval do
+            self.send(:define_method, "collection_scope") do
+              named_scope
+            end
+          end
+        end
+        
       end
       
       module InstanceMethods
@@ -26,6 +35,9 @@ module Traits
           singular_name.classify.constantize
         end
         
+        def collection_or_klass
+          collection_scope.present? ? instance_eval(collection_scope) : resource_class
+        end
         
         def response_with_options(resource)
            serialize_options  = {}
