@@ -1,8 +1,8 @@
 module Traits::Controller::Actions::Update
   module InstanceMethods
     def update
-      resource = instance_variable_get("@#{singular_name}").update_attributes(params[singular_name])
-      response_with_options resource
+      instance_variable_get("@#{singular_name}").update_attributes(params[singular_name])
+      response_with_options instance_variable_get("@#{singular_name}")
     end
   end
   

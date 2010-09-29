@@ -17,7 +17,6 @@ module Traits
             end
           end
         end
-        
       end
       
       module InstanceMethods
