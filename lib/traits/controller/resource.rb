@@ -12,12 +12,8 @@ module Traits
         
         def collection_scope named_scope, options = {}
           class_eval do
-            self.send(:define_method, "collection_scope") do
-              named_scope
-            end
-            self.send(:define_method, "collection_scope_options") do
-              options || {}
-            end
+             class_variable_set("@@collection_scope", named_scope)
+             class_variable_set("@@collection_scope_options", options)
           end
         end
       end
@@ -38,9 +34,9 @@ module Traits
         end
         
         def collection_or_klass
-          only = collection_scope_options[:except]
+          only = (defined? @@collection_scope_options) &&  @@collection_scope_options[:except]
           return resource_class if only && Array.wrap(only).exclude?(action_name)
-          collection_scope.present? ? instance_eval(collection_scope) : resource_class
+          (defined? @@collection_scope) ? instance_eval(@@collection_scope) : resource_class
         end
         
         def response_with_options(resource)
