@@ -35,7 +35,7 @@ module Traits
         
         def collection_or_klass
           except = (defined? @@collection_scope_options) &&  @@collection_scope_options[:except]
-          return resource_class if only && Array.wrap(except).include?(action_name.to_sym)
+          return resource_class if except && Array.wrap(except).include?(action_name.to_sym)
           (defined? @@collection_scope) ? instance_eval(@@collection_scope) : resource_class
         end
         
