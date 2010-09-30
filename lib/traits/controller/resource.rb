@@ -12,8 +12,8 @@ module Traits
         
         def collection_scope named_scope, options = {}
           class_eval do
-             class_variable_set("@@collection_scope", named_scope)
-             class_variable_set("@@collection_scope_options", options)
+            attr_accessor_with_default :collection_scope, named_scope
+            attr_accessor_with_default :collection_scope_options, options
           end
         end
       end
@@ -34,9 +34,9 @@ module Traits
         end
         
         def collection_or_klass
-          except = (defined? @@collection_scope_options) &&  @@collection_scope_options[:except]
+          except = (defined? collection_scope_options) &&  collection_scope_options[:except]
           return resource_class if except && Array.wrap(except).include?(action_name.to_sym)
-          (defined? @@collection_scope) ? instance_eval(@@collection_scope) : resource_class
+          (defined? collection_scope) ? instance_eval(collection_scope) : resource_class
         end
         
         def response_with_options(resource)
