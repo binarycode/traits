@@ -23,7 +23,7 @@ module Traits
         end
         
         def define_actions(*args)
-          args.map {|v| v.to_s.classify }.each {|v| self.send(:include, "Traits::Controller::Actions::#{v}") }
+          args.map {|v| v.to_s.classify }.each {|v| self.send(:include, "Traits::Controller::Actions::#{v}".constantize) }
         end
       end
       
