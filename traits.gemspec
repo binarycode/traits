@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{traits}
-  s.version = "0.1.3"
+  s.version = "0.2.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["dieinzige"]
-  s.date = %q{2010-08-23}
+  s.date = %q{2010-11-08}
   s.description = %q{Watch description}
   s.email = %q{dieinzige@gmail.com}
   s.extra_rdoc_files = [
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
      "lib/traits/controller/actions/destroy.rb",
      "lib/traits/controller/actions/edit.rb",
      "lib/traits/controller/actions/index.rb",
+     "lib/traits/controller/actions/new.rb",
      "lib/traits/controller/actions/show.rb",
      "lib/traits/controller/actions/update.rb",
      "lib/traits/controller/authorization.rb",

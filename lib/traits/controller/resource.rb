@@ -10,11 +10,20 @@ module Traits
           controller_name.singularize
         end
         
-        def collection_scope named_scope, options = {}
+        def set_scope(scope, options = {})
           class_eval do
-            attr_accessor_with_default :collection_scope, named_scope
-            attr_accessor_with_default :collection_scope_options, options
+            attr_accessor_with_default :collection_scope, { :scope => scope, :condition => options }
           end
+        end
+        
+        def set_options(options = {})
+          class_eval do
+            attr_accessor_with_default :_custom_options, options
+          end
+        end
+        
+        def define_actions(*args)
+          args.map {|v| v.to_s.classify }.each {|v| self.send(:include, "Traits::Controller::Actions::#{v}") }
         end
       end
       
@@ -33,10 +42,13 @@ module Traits
           singular_name.classify.constantize
         end
         
-        def collection_or_klass
-          except = (defined? collection_scope_options) &&  collection_scope_options[:except]
-          return resource_class if except && Array.wrap(except).include?(action_name.to_sym)
-          (defined? collection_scope) ? instance_eval(collection_scope) : resource_class
+        def proxy_klass
+          return resource_class unless (defined? collection_scope)
+          return instance_eval(collection_scope) if collection_scope[:condition].blank? || (
+            (Array.wrap(collection_scope[:condition][:only]).include?(action_name.to_sym) ||
+            !Array.wrap(collection_scope[:condition][:except]).include?(action_name.to_sym))
+          )
+          return resource_class
         end
         
         def response_with_options(resource)

@@ -2,7 +2,8 @@ module Traits::Controller::Actions::Index
   
   module InstanceMethods
     def index
-      collection = params[:filter] ? collection_or_klass.search(params) : collection_or_klass.all
+      collection = proxy_klass.respond_to?(:search) ? proxy_klass.search(params) : collection_or_klass.scoped
+      collection = collection.paginate(:page => params[:page] || 1) if (defined? _custom_options && _custom_options[:paginated])
       instance_variable_set("@#{singular_name.pluralize}", collection)
       response_with_options collection
     end
