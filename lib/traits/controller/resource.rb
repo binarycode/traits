@@ -43,11 +43,17 @@ module Traits
         end
         
         def proxy_klass
-          return resource_class unless (defined? collection_scope)
-          return instance_eval(collection_scope[:scope]) if collection_scope[:condition].blank? || (
-                   (Array.wrap(collection_scope[:condition][:only]).include?(action_name.to_sym) &&
-                   !Array.wrap(collection_scope[:condition][:except]).include?(action_name.to_sym))
-                 )
+          return resource_class if !defined?(collection_scope) 
+          
+          action  = action_name.to_sym
+          only    = Array.wrap(collection_scope[:condition][:only])
+          except  = Array.wrap(collection_scope[:condition][:except])
+          
+          return resource_class if except.include?(action)
+                  
+          return instance_eval(collection_scope[:scope]) if collection_scope[:condition].blank? ||
+                    (only.include?(action) && !except.include?(action))
+                    
           return resource_class
         end
         
