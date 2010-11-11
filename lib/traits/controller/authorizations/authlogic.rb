@@ -79,7 +79,7 @@ module Traits::Controller::Authorization::Authlogic
          
          def access_denied(path = root_path, notice = "You must be logged")
            store_location
-           redirect_to path, :status => 401, :notice => notice
+           redirect_to path, :notice => notice
            return false
          end
     end
